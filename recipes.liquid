@@ -1,0 +1,78 @@
+---
+layout: layout.liquid
+title: Recipes
+---
+
+<div class="container mx-auto p-4"
+    x-data="{ 
+        randomInt: null,    
+        generateRandomNumber() {
+            this.randomInt = window.getRandomInt(50)
+        }
+    }"
+>
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-auto rounded transition duration-300" @click="generateRandomNumber()">Get A Random Recipe 🍳</button>
+
+    <div class="m-4">
+        <h2 class="font-bold text-white mt-5 text-xl" x-text="await $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='name')"></h2>
+    </div>
+    
+    <div class="m-2 pb-4">
+        <template x-if="randomInt">
+            <h4 class="m-4" x-text="'Calories (per serving): ' + (await $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='caloriesPerServing'))"></h4>
+        </template>
+
+        <template x-if="randomInt">
+            <h4 class="m-4" x-text="'Prep Time: ' + (await $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='prepTimeMinutes')) + ' minutes'"></h4>
+        </template>
+    
+        <template x-if="randomInt">
+            <h4 class="m-4" x-text="'Cook Time: ' + (await $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='cookTimeMinutes')) + ' minutes'"></h4>
+        </template>
+    
+        <template x-if="randomInt">
+            <h4 class="m-4" x-text="'Servings: ' + (await $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='servings'))"></h4>
+        </template>
+    </div>
+    
+
+    <div class="grid list-inside mx-auto text-pretty">
+
+        <template x-if="randomInt">
+            <div class="flex items-center justify-center"> 
+                <hr class="w-1/6 border-t border-gray-300"> 
+                <span class="px-3 text-white"> 
+                Ingredients 🛒
+                </span> 
+                <hr class="w-1/6 border-t border-gray-300"> 
+            </div> 
+        </template>
+        
+        
+        <ul class="list-none mx-auto max-w-md text-nowrap">
+            <template x-for="(ingredient, index) in $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='ingredients')" :key="index">
+            <li class="text-left m-3 ml-10 w-64 min-w-64" x-text="ingredient"></li>
+            </template>
+        </ul>
+
+        <template x-if="randomInt">
+            <div class="flex items-center justify-center"> 
+                <hr class="w-1/6 border-t border-gray-300"> 
+                <span class="px-3 text-white"> 
+                Instructions 📋
+                </span> 
+                <hr class="w-1/6 border-t border-gray-300"> 
+            </div> 
+        </template>
+
+        <ol class="list-decimal mx-auto max-w-md">
+            <template x-for="(step, index) in $fetchjson(`https://dummyjson.com/recipes/${randomInt}`, jsonItem='instructions')" :key="index">
+                <li class="text-left m-4" x-text="step"></li>
+            </template>
+        </ol>
+
+    </div>
+
+    
+</div>

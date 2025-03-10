@@ -8,13 +8,18 @@ title: 11ty Boilerplate
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles/screen.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/hankhank10/alpine-fetch@main/alpine-fetch.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="/scripts/randomNumber.js"></script>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="/" title="Go home">Home</a></li>
-      <li><a href="/about/" title="About the boilerplate">About</a></li>
+  <nav class="bg-gray-800 p-4">
+    <ul class="flex justify-around max-w-4xl mx-auto">
+      <li><a href="/" class="text-white hover:text-gray-300" title="Quotes">Quotes</a></li>
+      <li><a href="/recipes/" class="text-white hover:text-gray-300" title="Recipes">Recipes</a></li>
+      <li><a href="/models/" class="text-white hover:text-gray-300" title="AI Models">AI Models</a></li>
     </ul>
   </nav>
     {{ content }}
